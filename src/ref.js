@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-const FocusInput = () => {
+export const FocusInput = () => {
     const inputRef = useRef(null);
 
     const focusInput = () => {
