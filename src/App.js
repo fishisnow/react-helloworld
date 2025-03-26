@@ -5,6 +5,7 @@ import './App.css';
 import {ThemeContext, ThemedComponent} from './ctx';
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {Post} from "./req";
+import {PostForm} from "./mu";
 
 function App() {
     const [theme, setTheme] = useState('lightgrey');
@@ -15,16 +16,14 @@ function App() {
     const queryClient = new QueryClient();
     return (
         <div className="App">
-            <header className="App-header">
+            <div className="theme-section">
                 <h2>Ref 示例</h2>
                 <FocusInput/>
-                
+
                 <h2>Memo 示例</h2>
                 <input type="number" value={value} onChange={handleChange}/>
                 <ExpensiveComputation value={value}/>
-            </header>
 
-            <div className="theme-section">
                 <h2>Context 示例</h2>
                 <ThemeContext.Provider value={theme}>
                     <div className="theme-container">
@@ -37,8 +36,12 @@ function App() {
                         <ThemedComponent />
                     </div>
                 </ThemeContext.Provider>
-            </div>
-            <div>
+
+                <h2>状态管理 (mu.js) 示例</h2>
+                <QueryClientProvider client={queryClient}>
+                    <PostForm />
+                </QueryClientProvider>
+                <h2>数据请求 (req.js) 示例</h2>
                 <QueryClientProvider client={queryClient}>
                     <Post />
                 </QueryClientProvider>
