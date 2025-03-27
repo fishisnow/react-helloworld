@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 import { CodeEditor } from '../components/CodeEditor';
 import { CodePreview } from '../components/CodePreview';
@@ -15,7 +15,9 @@ const whenToUse = `
   • 当需要在深层组件树中触发状态更新时（结合 Context 使用）
 `;
 
-const code = `const UseReducerDemo = () => {
+const code = `import React, { useState, useReducer } from 'react';
+
+const UseReducerDemo = () => {
   // 定义 reducer 函数
   const todoReducer = (state, action) => {
     switch (action.type) {
@@ -157,6 +159,7 @@ const code = `const UseReducerDemo = () => {
 
 export const UseReducerDemoPage = () => (
   <DemoPage
+    title="useReducer Hook"
     whatIs={whatIs}
     whenToUse={whenToUse}
     code={code}

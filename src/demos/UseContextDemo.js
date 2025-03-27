@@ -85,6 +85,7 @@ const code = `const UseContextDemo = () => {
 
 export const UseContextDemoPage = () => (
   <DemoPage
+    title="useContext Hook"
     whatIs={whatIs}
     whenToUse={whenToUse}
     code={code}

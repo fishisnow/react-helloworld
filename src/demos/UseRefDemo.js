@@ -16,86 +16,106 @@ const code = `const UseRefDemo = () => {
   const countRef = useRef(0);
   const [renderCount, setRenderCount] = useState(0);
 
-  // 聚焦输入框
   const handleFocus = () => {
     inputRef.current.focus();
   };
 
-  // 记录点击次数（不触发重新渲染）
   const handleClick = () => {
     countRef.current += 1;
     console.log('点击次数:', countRef.current);
   };
 
-  // 更新状态（触发重新渲染）
   const handleUpdate = () => {
     setRenderCount(prev => prev + 1);
   };
 
   return (
     <div style={{ padding: '20px' }}>
-      <div style={{ marginBottom: '20px' }}>
-        <input
-          ref={inputRef}
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          style={{
-            padding: '8px',
-            marginRight: '10px',
-            borderRadius: '4px',
-            border: '1px solid #ddd'
-          }}
-        />
-        <button
-          onClick={handleFocus}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: '#1976d2',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}
-        >
-          聚焦输入框
-        </button>
+      {/* DOM引用示例 */}
+      <div style={{
+        padding: '20px',
+        marginBottom: '20px',
+        backgroundColor: 'white',
+        borderRadius: '8px',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+      }}>
+        <h3>DOM 引用示例</h3>
+        <p style={{ color: '#666', fontSize: '14px' }}>
+          使用 useRef 直接操作 DOM 元素
+        </p>
+        <div style={{ marginBottom: '10px' }}>
+          <input
+            ref={inputRef}
+            type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            style={{
+              padding: '8px',
+              marginRight: '10px',
+              borderRadius: '4px',
+              border: '1px solid #ddd'
+            }}
+          />
+          <button
+            onClick={handleFocus}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#1976d2',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            聚焦输入框
+          </button>
+        </div>
       </div>
 
-      <div style={{ marginBottom: '20px' }}>
-        <button
-          onClick={handleClick}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: '#4caf50',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            marginRight: '10px'
-          }}
-        >
-          增加点击次数（不重新渲染）
-        </button>
-        <button
-          onClick={handleUpdate}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: '#f44336',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}
-        >
-          触发重新渲染
-        </button>
-      </div>
-
-      <div>
-        <p>当前输入: {text}</p>
-        <p>渲染次数: {renderCount}</p>
-        <p>查看控制台以了解点击次数</p>
+      {/* 计数器示例 */}
+      <div style={{
+        padding: '20px',
+        backgroundColor: 'white',
+        borderRadius: '8px',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+      }}>
+        <h3>引用值示例</h3>
+        <p style={{ color: '#666', fontSize: '14px' }}>
+          使用 useRef 存储不触发重渲染的值
+        </p>
+        <div style={{ marginBottom: '10px' }}>
+          <button
+            onClick={handleClick}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#4caf50',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              marginRight: '10px'
+            }}
+          >
+            增加点击次数（不重渲染）
+          </button>
+          <button
+            onClick={handleUpdate}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#f44336',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            触发重新渲染
+          </button>
+          <p>渲染次数: {renderCount}</p>
+          <p style={{ color: '#666', fontSize: '14px' }}>
+            查看控制台以了解点击次数
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -103,6 +123,7 @@ const code = `const UseRefDemo = () => {
 
 export const UseRefDemoPage = () => (
   <DemoPage
+    title="useRef Hook"
     whatIs={whatIs}
     whenToUse={whenToUse}
     code={code}

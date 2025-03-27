@@ -29,30 +29,117 @@ const code = `const UseStateDemo = () => {
   };
 
   return (
-    <div>
-      <div style={{ marginBottom: '20px' }}>
+    <div style={{ padding: '20px' }}>
+      {/* 计数器示例 */}
+      <div style={{
+        padding: '20px',
+        marginBottom: '20px',
+        backgroundColor: 'white',
+        borderRadius: '8px',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+      }}>
         <h3>计数器示例</h3>
-        <p>当前计数: {count}</p>
-        <button onClick={() => setCount(count + 1)}>增加</button>
-        <button onClick={() => setCount(count - 1)}>减少</button>
+        <p style={{ color: '#666', fontSize: '14px' }}>
+          使用 useState 管理数字状态
+        </p>
+        <div>
+          <p>当前计数: {count}</p>
+          <button 
+            onClick={() => setCount(count + 1)}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#1976d2',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              marginRight: '10px'
+            }}
+          >
+            增加
+          </button>
+          <button
+            onClick={() => setCount(count - 1)}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#f44336',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            减少
+          </button>
+        </div>
       </div>
 
-      <div style={{ marginBottom: '20px' }}>
+      {/* 待办事项示例 */}
+      <div style={{
+        padding: '20px',
+        marginBottom: '20px',
+        backgroundColor: 'white',
+        borderRadius: '8px',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+      }}>
         <h3>待办事项示例</h3>
-        <div>
+        <p style={{ color: '#666', fontSize: '14px' }}>
+          使用 useState 管理数组和文本状态
+        </p>
+        <div style={{ marginBottom: '10px' }}>
           <input
             type="text"
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="输入待办事项"
+            style={{
+              padding: '8px',
+              marginRight: '10px',
+              borderRadius: '4px',
+              border: '1px solid #ddd'
+            }}
           />
-          <button onClick={handleAddItem}>添加</button>
+          <button 
+            onClick={handleAddItem}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#4caf50',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            添加
+          </button>
         </div>
-        <ul>
+        <ul style={{ listStyle: 'none', padding: 0 }}>
           {items.map((item, index) => (
-            <li key={index}>
-              {item}
-              <button onClick={() => handleRemoveItem(index)}>删除</button>
+            <li 
+              key={index}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: '8px',
+                marginBottom: '8px',
+                backgroundColor: '#f5f5f5',
+                borderRadius: '4px'
+              }}
+            >
+              <span style={{ flex: 1 }}>{item}</span>
+              <button
+                onClick={() => handleRemoveItem(index)}
+                style={{
+                  padding: '4px 8px',
+                  backgroundColor: '#ff4444',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                删除
+              </button>
             </li>
           ))}
         </ul>
@@ -63,6 +150,7 @@ const code = `const UseStateDemo = () => {
 
 export const UseStateDemoPage = () => (
   <DemoPage
+    title="useState Hook"
     whatIs={whatIs}
     whenToUse={whenToUse}
     code={code}

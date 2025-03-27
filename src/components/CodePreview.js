@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { Box } from '@mui/material';
 
 export const CodePreview = ({ code }) => {
   const iframeRef = useRef(null);
@@ -87,16 +88,22 @@ export const CodePreview = ({ code }) => {
   }, [code]);
 
   return (
-    <iframe
-      ref={iframeRef}
-      style={{
-        width: '100%',
-        border: 'none',
-        backgroundColor: 'white',
-        height: '100%',
-        minHeight: '500px'
-      }}
-      title="preview"
-    />
+    <div style={{
+      width: '100%',
+      height: '100%',
+      padding: '16px'
+    }}>
+      <iframe
+        ref={iframeRef}
+        style={{
+          width: '100%',
+          border: 'none',
+          backgroundColor: 'white',
+          height: '100%',
+          minHeight: '500px'
+        }}
+        title="preview"
+      />
+    </div>
   );
 }; 

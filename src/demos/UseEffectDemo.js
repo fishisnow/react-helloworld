@@ -55,7 +55,10 @@ const code = `const UseEffectDemo = () => {
   }, []);
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ 
+      padding: '20px',
+      overflow: 'visible'
+    }}>
       <div style={{
         padding: '20px',
         marginBottom: '20px',
@@ -63,7 +66,7 @@ const code = `const UseEffectDemo = () => {
         borderRadius: '8px',
         boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
       }}>
-        <h3>示例1: 更新文档标题</h3>
+        <h3>更新文档标题</h3>
         <p style={{ color: '#666', fontSize: '14px' }}>
           每次计数更新时，都会更新文档标题
         </p>
@@ -80,7 +83,7 @@ const code = `const UseEffectDemo = () => {
         borderRadius: '8px',
         boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
       }}>
-        <h3>示例2: 窗口大小监听</h3>
+        <h3>窗口大小监听</h3>
         <p style={{ color: '#666', fontSize: '14px' }}>
           监听并显示窗口宽度，组件卸载时会清理监听器
         </p>
@@ -92,12 +95,11 @@ const code = `const UseEffectDemo = () => {
 
       <div style={{
         padding: '20px',
-        marginBottom: '20px',
         backgroundColor: 'white',
         borderRadius: '8px',
         boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
       }}>
-        <h3>示例3: 数据获取</h3>
+        <h3>数据获取</h3>
         <p style={{ color: '#666', fontSize: '14px' }}>
           组件加载时从 API 获取用户数据
         </p>
@@ -118,6 +120,7 @@ const code = `const UseEffectDemo = () => {
 
 export const UseEffectDemoPage = () => (
   <DemoPage
+    title="useEffect Hook"
     whatIs={whatIs}
     whenToUse={whenToUse}
     code={code}

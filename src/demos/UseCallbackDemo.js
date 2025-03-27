@@ -1,112 +1,6 @@
 import React, { useState, useCallback } from 'react';
-import { Box, Paper, Typography } from '@mui/material';
-import { CodeEditor } from '../components/CodeEditor';
-import { CodePreview } from '../components/CodePreview';
 import { DemoPage } from '../components/DemoPage';
 
-// 定义 TodoItem 组件
-const TodoItem = React.memo(({ todo, onToggle, onDelete }) => {
-  console.log('TodoItem 渲染:', todo.text);
-  return (
-    <li style={{ margin: '10px 0' }}>
-      <input
-        type="checkbox"
-        checked={todo.completed}
-        onChange={() => onToggle(todo.id)}
-      />
-      <span style={{
-        marginLeft: '10px',
-        textDecoration: todo.completed ? 'line-through' : 'none'
-      }}>
-        {todo.text}
-      </span>
-      <button
-        onClick={() => onDelete(todo.id)}
-        style={{ marginLeft: '10px' }}
-      >
-        删除
-      </button>
-    </li>
-  );
-});
-
-const defaultCode = `// 子组件，使用 React.memo 来避免不必要的重渲染
-const TodoItem = React.memo(({ todo, onToggle, onDelete }) => {
-  console.log('TodoItem 渲染:', todo.text);
-  return (
-    <li style={{ margin: '10px 0' }}>
-      <input
-        type="checkbox"
-        checked={todo.completed}
-        onChange={() => onToggle(todo.id)}
-      />
-      <span style={{
-        marginLeft: '10px',
-        textDecoration: todo.completed ? 'line-through' : 'none'
-      }}>
-        {todo.text}
-      </span>
-      <button
-        onClick={() => onDelete(todo.id)}
-        style={{ marginLeft: '10px' }}
-      >
-        删除
-      </button>
-    </li>
-  );
-});`;
-
-const UseCallbackDemo = () => {
-  const [todos, setTodos] = useState([
-    { id: 1, text: '学习 useCallback', completed: false },
-    { id: 2, text: '理解性能优化', completed: false }
-  ]);
-  const [count, setCount] = useState(0);
-
-  // 使用 useCallback 记忆回调函数
-  const handleToggle = useCallback((todoId) => {
-    setTodos(currentTodos =>
-      currentTodos.map(todo =>
-        todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
-  }, []); // 空依赖数组，因为使用了函数式更新
-
-  const handleDelete = useCallback((todoId) => {
-    setTodos(currentTodos =>
-      currentTodos.filter(todo => todo.id !== todoId)
-    );
-  }, []);
-
-  // 这个函数不需要被记忆，因为它只在当前组件中使用
-  const handleCount = () => {
-    setCount(c => c + 1);
-  };
-
-  return (
-    <div>
-      <h3>useCallback 示例</h3>
-      <div style={{ marginBottom: '20px' }}>
-        <p>计数器: {count}</p>
-        <button onClick={handleCount}>增加计数</button>
-        <p style={{ fontSize: '14px', color: '#666' }}>
-          增加计数不会导致 TodoItem 重新渲染
-        </p>
-      </div>
-
-      <ul style={{ listStyle: 'none', padding: 0 }}>
-        {todos.map(todo => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            onToggle={handleToggle}
-            onDelete={handleDelete}
-          />
-        ))}
-      </ul>
-    </div>
-  );
-};
 
 const whatIs = 
   "useCallback 是一个用于性能优化的 Hook，它返回一个记忆化的回调函数。这个函数只有在依赖项发生变化时才会更新，可以避免不必要的渲染和计算。";
@@ -117,37 +11,7 @@ const whenToUse =
   "• 当需要缓存函数以避免不必要的重新创建时\n" +
   "• 当回调函数的创建开销较大时";
 
-const code = `// 完整的示例代码
-import React, { useState, useCallback } from 'react';
-
-// TodoItem 组件定义
-const TodoItem = React.memo(({ todo, onToggle, onDelete }) => {
-  console.log('TodoItem 渲染:', todo.text);
-  return (
-    <li style={{ margin: '10px 0' }}>
-      <input
-        type="checkbox"
-        checked={todo.completed}
-        onChange={() => onToggle(todo.id)}
-      />
-      <span style={{
-        marginLeft: '10px',
-        textDecoration: todo.completed ? 'line-through' : 'none'
-      }}>
-        {todo.text}
-      </span>
-      <button
-        onClick={() => onDelete(todo.id)}
-        style={{ marginLeft: '10px' }}
-      >
-        删除
-      </button>
-    </li>
-  );
-});
-
-// 主组件
-const UseCallbackDemo = () => {
+const code = `const UseCallbackDemo = () => {
   const [todos, setTodos] = useState([
     { id: 1, text: '学习 useCallback', completed: false },
     { id: 2, text: '理解性能优化', completed: false }
@@ -173,32 +37,97 @@ const UseCallbackDemo = () => {
   };
 
   return (
-    <div>
-      <h3>useCallback 示例</h3>
-      <div style={{ marginBottom: '20px' }}>
-        <p>计数器: {count}</p>
-        <button onClick={handleCount}>增加计数</button>
-        <p style={{ fontSize: '14px', color: '#666' }}>
-          增加计数不会导致 TodoItem 重新渲染
+    <div style={{ padding: '20px' }}>
+      {/* 计数器示例 */}
+      <div style={{
+        padding: '20px',
+        marginBottom: '20px',
+        backgroundColor: 'white',
+        borderRadius: '8px',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+      }}>
+        <h3>计数器与重渲染示例</h3>
+        <p style={{ color: '#666', fontSize: '14px' }}>
+          点击按钮增加计数，观察控制台输出，验证 TodoItem 不会重新渲染
         </p>
+        <div style={{ marginBottom: '10px' }}>
+          <p>当前计数: {count}</p>
+          <button 
+            onClick={handleCount}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#1976d2',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            增加计数
+          </button>
+        </div>
       </div>
 
-      <ul style={{ listStyle: 'none', padding: 0 }}>
-        {todos.map(todo => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            onToggle={handleToggle}
-            onDelete={handleDelete}
-          />
-        ))}
-      </ul>
+      {/* Todo列表示例 */}
+      <div style={{
+        padding: '20px',
+        backgroundColor: 'white',
+        borderRadius: '8px',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+      }}>
+        <h3>Todo 列表</h3>
+        <p style={{ color: '#666', fontSize: '14px' }}>
+          使用 useCallback 优化的 Todo 列表，避免不必要的重渲染
+        </p>
+        <ul style={{ listStyle: 'none', padding: 0 }}>
+          {todos.map(todo => (
+            <li 
+              key={todo.id}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: '8px',
+                marginBottom: '8px',
+                backgroundColor: '#f5f5f5',
+                borderRadius: '4px'
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={todo.completed}
+                onChange={() => handleToggle(todo.id)}
+                style={{ marginRight: '10px' }}
+              />
+              <span style={{
+                flex: 1,
+                textDecoration: todo.completed ? 'line-through' : 'none'
+              }}>
+                {todo.text}
+              </span>
+              <button
+                onClick={() => handleDelete(todo.id)}
+                style={{
+                  padding: '4px 8px',
+                  backgroundColor: '#ff4444',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                删除
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };`;
 
 export const UseCallbackDemoPage = () => (
   <DemoPage
+    title="useCallback Hook"
     whatIs={whatIs}
     whenToUse={whenToUse}
     code={code}
