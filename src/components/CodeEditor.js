@@ -21,7 +21,12 @@ export const CodeEditor = ({ code, onChange, title }) => {
             lineNumbers: 'on',
             scrollBeyond: false,
             automaticLayout: true,
+            scrollbar: {
+              vertical: 'visible',
+              horizontal: 'visible'
+            }
           }}
+          style={{ flex: 1 }}
         />
       </Box>
     </Paper>

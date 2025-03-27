@@ -25,24 +25,50 @@ export const CodePreview = ({ code }) => {
             <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
             <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
             <style>
-              body { margin: 0; padding: 20px; font-family: Arial, sans-serif; }
-              button { margin: 5px; padding: 8px 16px; }
-              input, textarea { margin: 5px; padding: 8px; }
+              body { 
+                margin: 0; 
+                padding: 0; 
+                font-family: Arial, sans-serif;
+              }
+              button { 
+                margin: 5px; 
+                padding: 8px 16px;
+                background-color: #1976d2;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+              }
+              button:hover {
+                background-color: #1565c0;
+              }
+              input, textarea { 
+                margin: 5px; 
+                padding: 8px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+              }
+              .paper {
+                background: white;
+                padding: 20px;
+                margin: 10px 0;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+              }
             </style>
           </head>
           <body>
             <div id="root"></div>
             <script type="text/babel">
-              const { useState, useRef, useEffect, useMemo, useContext, createContext } = React;
-              
+              const { 
+                useState, useRef, useEffect, useMemo, 
+                useContext, createContext, useReducer, useCallback 
+              } = React;
               ${processedCode}
-
               const root = ReactDOM.createRoot(document.getElementById('root'));
-              const components = Object.keys(window).filter(key => 
-                typeof window[key] === 'function' && 
-                /^[A-Z]/.test(key)
-              );
-              const LastComponent = window[components[components.length - 1]];
+              const LastComponent = window[Object.keys(window).find(key => 
+                typeof window[key] === 'function' && /^[A-Z]/.test(key)
+              )];
               root.render(<LastComponent />);
             </script>
           </body>
@@ -67,8 +93,8 @@ export const CodePreview = ({ code }) => {
         width: '100%',
         border: 'none',
         backgroundColor: 'white',
-        minHeight: '200px',
-        transition: 'height 0.3s'
+        height: '100%',
+        minHeight: '500px'
       }}
       title="preview"
     />
