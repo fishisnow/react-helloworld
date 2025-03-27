@@ -1,53 +1,26 @@
-import {FocusInput} from './ref';
-import {ExpensiveComputation} from "./memoCallback";
-import {useState} from "react";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Layout } from './components/Layout';
+import { RefDemo } from './demos/RefDemo';
+import { MemoDemoPage } from './demos/MemoDemo';
+import { ContextDemoPage } from './demos/ContextDemo';
+import { StateDemoPage } from './demos/StateDemo';
+import { QueryDemoPage } from './demos/QueryDemo';
 import './App.css';
-import {ThemeContext, ThemedComponent} from './ctx';
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import {Post} from "./req";
-import {PostForm} from "./mu";
 
 function App() {
-    const [theme, setTheme] = useState('lightgrey');
-    const [value, setValue] = useState(1);
-    const handleChange = (e) => {
-        setValue(Number(e.target.value));
-    }
-    const queryClient = new QueryClient();
-    return (
-        <div className="App">
-            <div className="theme-section">
-                <h2>Ref 示例</h2>
-                <FocusInput/>
-
-                <h2>Memo 示例</h2>
-                <input type="number" value={value} onChange={handleChange}/>
-                <ExpensiveComputation value={value}/>
-
-                <h2>Context 示例</h2>
-                <ThemeContext.Provider value={theme}>
-                    <div className="theme-container">
-                        <button 
-                            onClick={() => setTheme(theme === 'lightgrey' ? 'darkgrey' : 'lightgrey')}
-                            className="theme-button"
-                        >
-                            切换主题
-                        </button>
-                        <ThemedComponent />
-                    </div>
-                </ThemeContext.Provider>
-
-                <h2>状态管理 (mu.js) 示例</h2>
-                <QueryClientProvider client={queryClient}>
-                    <PostForm />
-                </QueryClientProvider>
-                <h2>数据请求 (req.js) 示例</h2>
-                <QueryClientProvider client={queryClient}>
-                    <Post />
-                </QueryClientProvider>
-            </div>
-        </div>
-    );
+  return (
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="/ref" element={<RefDemo />} />
+          <Route path="/memo" element={<MemoDemoPage />} />
+          <Route path="/context" element={<ContextDemoPage />} />
+          <Route path="/state" element={<StateDemoPage />} />
+          <Route path="/query" element={<QueryDemoPage />} />
+        </Routes>
+      </Layout>
+    </Router>
+  );
 }
 
 export default App;
